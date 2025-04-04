@@ -19,6 +19,5 @@ class TestCalculadora(unittest.TestCase):
         resultado = calculadora.subtrair(-2, -3)
         self.assertEqual(resultado, 1)
 
-
 if __name__ == '__main__':
     unittest.main() 
