@@ -42,6 +42,34 @@ class TestCalculadora(unittest.TestCase):
     def test_tres_deve_ser_menor_que_cinco_menos_um(self) :
         self.assertLess(3, calculadora.subtrair(5,1))
     
+    
+    # Testes multiplicar
+
+    def test_multiplicar_dois_numeros_positivos(self):
+        resultado = calculadora.multiplicar(2, 3)
+        self.assertEqual(resultado, 6, "Falhou no teste de multiplicação entre dois números positivos.")
+
+    def test_multiplicar_dois_numeros_negativos(self):
+        resultado = calculadora.multiplicar(-2, -3)
+        self.assertEqual(resultado, 6, "Falhou no teste de multiplicação entre dois números negativos.")
+
+    def test_multiplicar_um_positivo_e_um_negativo(self):
+        resultado = calculadora.multiplicar(2, -3)
+        self.assertEqual(resultado, -6, "Falhou no teste de multiplicação entre um positivo e um negativo.")
+
+    def test_multiplicar_por_zero(self):
+        resultado = calculadora.multiplicar(3, 0)
+        self.assertEqual(resultado, 0, "Falhou no teste de multiplicação por zero.")
+
+    def test_multiplicar_decimais(self):
+        resultado = calculadora.multiplicar(0.5, 0.5)
+        self.assertEqual(resultado, 0.25, "Falhou no teste de multiplicação entre dois números decimais.")
+
+    def test_multiplicar_numeros_muito_elevados(self):
+        resultado = calculadora.multiplicar(100000000000000000000, 100000000000000000000)
+        self.assertEqual(resultado, 10000000000000000000000000000000000000000, "Falhou no teste de multiplicação com números muito elevados.")
+
+
     # Testes dividir
     
     def test_dividir_sucesso(self):
@@ -60,6 +88,7 @@ class TestCalculadora(unittest.TestCase):
             calculadora.dividir(0, 2)
 
         self.assertEqual(str(contexto.exception), "Não pode fazer divisão por zero")
+
 
     # Testes calcular porcentagem
     
@@ -90,6 +119,34 @@ class TestCalculadora(unittest.TestCase):
         
         # Vejo se a mensagem de log contém o texto esperado.
         self.assertIn("Algo deu errado!", log.output[0])
+
+    
+    # Teste calcular potência
+
+    def test_calcular_potencia_base_positiva_expoente_positivo(self):
+        resultado = calculadora.calcular_potencia(2, 3)
+        self.assertEqual(resultado, 8, "Falhou no teste de potência com base e expoente positivos.")
+
+    def test_calcular_potencia_base_positiva_expoente_negativo(self):
+        resultado = calculadora.calcular_potencia(2, -3)
+        self.assertEqual(resultado, 0.125, "Falhou no teste de potência com base positiva e expoente negativo.")
+
+    def test_calcular_potencia_base_negativa_expoente_positivo(self):
+        resultado = calculadora.calcular_potencia(-2, 3)
+        self.assertEqual(resultado, -8, "Falhou no teste de potência com base negativa e expoente positivo.")
+
+    def test_calcular_potencia_expoente_zero(self):
+        resultado = calculadora.calcular_potencia(3, 0)
+        self.assertEqual(resultado, 1, "Falhou no teste de potência com expoente zero.")
+
+    def test_calcular_potencia_expoente_negativo_elevado(self):
+        resultado = calculadora.calcular_potencia(3, -8)
+        self.assertAlmostEqual(resultado, 0.0001524, places=6, msg="Falhou no teste de potência com expoente negativo elevado.")
+
+    def test_calcular_potencia_com_tipo_invalido(self):
+        with self.assertRaises(TypeError):
+            calculadora.calcular_potencia('a', 2)
+
 
 if __name__ == '__main__':
     unittest.main() 
