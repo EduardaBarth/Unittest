@@ -36,22 +36,28 @@ class TestAluno(unittest.TestCase):
 class TestTurma(unittest.TestCase):
 
     def test_turma_vazia(self):
-        turma = Turma("A", 30)
+        turma = Turma("1-A", 30)
         self.assertEqual(len(turma.alunos), 0)
 
-    def test_turma_com_letra_invalida(self):
+    def test_turma_com_ano_sala_tamanho_invalido(self):
         with self.assertRaises(ValueError):
-            Turma("AB", 20)
+            Turma("1A", 20)
+
+    def test_turma_formatos_ano_sala(self):
+        self.assertRegex("1-A", "^\d-[A-Z]$")
+        self.assertNotRegex("1-a", "^\d-[A-Z]$")
+        self.assertNotRegex("1A", "^\d-[A-Z]$")
+        self.assertNotRegex("A-1", "^\d-[A-Z]$")
 
     def test_adicionar_aluno_com_sucesso(self):
-        turma = Turma("B", 2)
+        turma = Turma("2-B", 2)
         aluno = Aluno([7, 8, 9])
         resultado = turma.adicionar_aluno(aluno)
         self.assertTrue(resultado)
         self.assertEqual(len(turma.alunos), 1)
 
     def test_nao_adicionar_quando_cheia(self):
-        turma = Turma("C", 1)
+        turma = Turma("3-C", 1)
         aluno1 = Aluno([6, 6, 6])
         aluno2 = Aluno([7, 7, 7])
         turma.adicionar_aluno(aluno1)
