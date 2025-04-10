@@ -1,3 +1,4 @@
+import sys
 import unittest
 import calculadora
 import logging
@@ -7,6 +8,15 @@ import warnings
 class TestCalculadora(unittest.TestCase):
     
     # Testes somar
+
+    @unittest.skipIf(sys.platform.startswith('win'), "Test skipped on Windows platform")
+    def test_pular_ambiente_windows(self):
+        self.fail("Não deveria ser executado em ambiente Windows")
+
+    def test_somar_dois_numeros_iguais(self):
+        resultado = calculadora.somar(2, 2)
+        self.assertIs(resultado, 4)
+        self.assertIsNot(resultado, 5)
     
     def test_somar_dois_numeros_positivos(self):
         resultado = calculadora.somar(2, 3)
