@@ -11,14 +11,14 @@ def subtrair(numero1: float, numero2: float) -> float:
 def multiplicar(numero1: float, numero2: float) -> float:
     return numero1 * numero2
 
-def dividir(numero1: float, numero2: float) -> float:
-    if numero1 == 0 or numero2 == 0:
+def dividir(dividendo: float, divisor: float) -> float:
+    if divisor == 0:
         raise Exception("Não pode fazer divisão por zero")
 
-    return numero1 / numero2
+    return dividendo / divisor
 
 def calcular_porcentagem(valor: float, total: float) -> float:
-    if valor == 0 or total == 0:
+    if total == 0:
         logger.error("Algo deu errado!")
         return 0
     return valor / total * 100

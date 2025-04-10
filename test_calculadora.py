@@ -72,20 +72,20 @@ class TestCalculadora(unittest.TestCase):
 
     # Testes dividir
     
-    def test_dividir_sucesso(self):
+    def test_dividir_dois_numeros_inteiros_diferente_de_zero(self):
         resultado = calculadora.dividir(4, 2)
         self.assertEqual(resultado, 2)
     
-    def test_dividir_valor_errado(self):
+    def test_dividir_valor_com_resultado_nao_esperado(self):
         self.assertNotEqual(calculadora.dividir(8, 2), 5)
     
-    def test_dividir_com_zero_no_numero1(self):
+    def test_dividir_com_zero_no_divisor(self):
         """
         Esse teste verifica se a exceção lançada é a esperada quando o primeiro número é zero.
         Com uma mensagem de erro específica.
         """
         with self.assertRaises(Exception) as contexto:
-            calculadora.dividir(0, 2)
+            calculadora.dividir(2, 0)
 
         self.assertEqual(str(contexto.exception), "Não pode fazer divisão por zero")
 
