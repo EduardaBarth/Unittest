@@ -32,7 +32,6 @@ class TestAluno(unittest.TestCase):
         self.assertLess(aluno.media, 5.0)
 
 
-
 class TestTurma(unittest.TestCase):
 
     def test_turma_vazia(self):
@@ -64,6 +63,21 @@ class TestTurma(unittest.TestCase):
         resultado = turma.adicionar_aluno(aluno2)
         self.assertFalse(resultado)
         self.assertEqual(len(turma.alunos), 1)
+    
+    def test_adicao_de_multiplos_alunos(self):
+        turma = Turma("3-C", 4)
+
+        aluno1 = Aluno([6, 6, 6])
+        aluno2 = Aluno([7, 7, 7])
+        aluno3 = Aluno([8, 8, 8])
+        aluno4 = Aluno([9, 9, 9])
+
+        turma.adicionar_aluno(aluno1)
+        turma.adicionar_aluno(aluno2)
+        turma.adicionar_aluno(aluno3)
+        turma.adicionar_aluno(aluno4)
+
+        self.assertCountEqual([aluno4, aluno1, aluno3, aluno2], turma.alunos)
 
 
 if __name__ == "__main__":

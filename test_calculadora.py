@@ -101,6 +101,9 @@ class TestCalculadora(unittest.TestCase):
         self.assertEqual(str(contexto.exception), "Não pode fazer divisão por zero")
 
     def test_dividir_com_zero_no_dividendo(self):
+        """
+        Verifica se retorna um warning avisando que o dividendo é zero, para caso seja algum erro inconsciente
+        """
         with self.assertWarns(UserWarning):
             resultado = calculadora.dividir(0, 2)
             self.assertEqual(resultado, 0.0)
