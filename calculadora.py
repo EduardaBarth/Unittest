@@ -1,4 +1,6 @@
 import logging
+import warnings
+from typing import Any
 
 logger = logging.getLogger('meu_logger')
 
@@ -15,12 +17,16 @@ def dividir(dividendo: float, divisor: float) -> float:
     if divisor == 0:
         raise Exception("Não pode fazer divisão por zero")
 
+    if dividendo == 0:
+        warnings.warn("Você vai dividir um valor zerado. Está correto?", UserWarning)
+
     return dividendo / divisor
 
-def calcular_porcentagem(valor: float, total: float) -> float:
-    if total == 0:
+def calcular_porcentagem(valor: float, total: float) -> Any:
+    if total == 0 or total < 0:
         logger.error("Algo deu errado!")
-        return 0
+        return None
+
     return valor / total * 100
 
 def calcular_potencia(base: int, expoente: int) -> float:

@@ -1,6 +1,7 @@
 import unittest
 import calculadora
 import logging
+import warnings
 
 
 class TestCalculadora(unittest.TestCase):
@@ -72,7 +73,7 @@ class TestCalculadora(unittest.TestCase):
 
     # Testes dividir
     
-    def test_dividir_dois_numeros_inteiros_diferente_de_zero(self):
+    def test_dividir_dois_numeros_positivos_diferente_de_zero(self):
         resultado = calculadora.dividir(4, 2)
         self.assertEqual(resultado, 2)
     
@@ -89,6 +90,10 @@ class TestCalculadora(unittest.TestCase):
 
         self.assertEqual(str(contexto.exception), "Não pode fazer divisão por zero")
 
+    def test_dividir_com_zero_no_dividendo(self):
+        with self.assertWarns(UserWarning):
+            resultado = calculadora.dividir(0, 2)
+            self.assertEqual(resultado, 0.0)
 
     # Testes calcular porcentagem
     
@@ -112,7 +117,7 @@ class TestCalculadora(unittest.TestCase):
         logger.setLevel(logging.DEBUG)
 
         with self.assertLogs(logger, level='ERROR') as log:
-            calculadora.calcular_porcentagem(0, 60)
+            calculadora.calcular_porcentagem(60, 0)
 
         # Vejo se o tipo do log é uma lista
         self.assertIsInstance(log.output, list)
@@ -120,7 +125,15 @@ class TestCalculadora(unittest.TestCase):
         # Vejo se a mensagem de log contém o texto esperado.
         self.assertIn("Algo deu errado!", log.output[0])
 
-    
+    def test_calcular_porcentagem_com_numero_negativo(self):
+        """
+        Verifico se o retono está vindo vazio no caso do valor total ser negativo
+        """
+        resultado = calculadora.calcular_porcentagem(50, -80)
+
+        self.assertIsNone(resultado)
+
+
     # Teste calcular potência
 
     def test_calcular_potencia_base_positiva_expoente_positivo(self):
