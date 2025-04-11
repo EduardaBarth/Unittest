@@ -2,7 +2,6 @@ import sys
 import unittest
 import calculadora
 import logging
-import warnings
 
 
 class TestCalculadora(unittest.TestCase):
@@ -26,7 +25,7 @@ class TestCalculadora(unittest.TestCase):
         resultado = calculadora.somar(-2, -3)
         self.assertEqual(resultado, -5)
     
-    def test_somar_string_com_numero_deve_resultar_em_erro(self) :
+    def test_somar_string_com_numero_deve_resultar_em_erro(self):
         self.assertRaises(TypeError, calculadora.somar, '', 1)
 
     def test_somar_numero_positivo_com_negativo(self) :
@@ -39,7 +38,6 @@ class TestCalculadora(unittest.TestCase):
     def test_somar_deve_retornar_int(self) :
         self.assertIsInstance(calculadora.somar(1,1), int)
 
-    
     # Testes subtrair
     
     def test_subtrair_dois_numeros_positivos(self):
@@ -52,8 +50,7 @@ class TestCalculadora(unittest.TestCase):
         
     def test_tres_deve_ser_menor_que_cinco_menos_um(self) :
         self.assertLess(3, calculadora.subtrair(5,1))
-    
-    
+
     # Testes multiplicar
 
     def test_multiplicar_dois_numeros_positivos(self):
@@ -79,7 +76,6 @@ class TestCalculadora(unittest.TestCase):
     def test_multiplicar_numeros_muito_elevados(self):
         resultado = calculadora.multiplicar(100000000000000000000, 100000000000000000000)
         self.assertEqual(resultado, 10000000000000000000000000000000000000000, "Falhou no teste de multiplicação com números muito elevados.")
-
 
     # Testes dividir
     
@@ -145,7 +141,6 @@ class TestCalculadora(unittest.TestCase):
         resultado = calculadora.calcular_porcentagem(50, -80)
 
         self.assertIsNone(resultado)
-
 
     # Teste calcular potência
 

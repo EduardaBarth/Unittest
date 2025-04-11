@@ -29,7 +29,7 @@ class Aluno:
             self.situacao = "Reprovado"
 
     def __str__(self):
-        return {"Notas": self.notas, "Média": self.media, "Situação": self.situacao}
+        return f"Notas: {self.notas} | Média: {self.media:.2f} | Situação: {self.situacao}"
 
 
 class Turma:
@@ -50,7 +50,7 @@ class Turma:
         return False
 
     def __str__(self):
-        return {"Turma": self.ano_sala, "Capacidade máxima": self.capacidade_maxima, "Alunos cadastrados": self.alunos}
+        return f"Turma {self.ano_sala} - Capacidade máxima: {self.capacidade_maxima} alunos - Alunos cadastrados: {len(self.alunos)}"
 
 
 if __name__ == '__main__':
