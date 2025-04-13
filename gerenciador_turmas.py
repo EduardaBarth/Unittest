@@ -34,9 +34,8 @@ class Aluno:
 
 class Turma:
     def __init__(self, ano_sala: str, capacidade_maxima: int):
-        padrao_ano_sala = re.compile("^\d-[A-Z]$")
-
-        if len(ano_sala) != 3 or not padrao_ano_sala.match(ano_sala):
+        
+        if len(ano_sala) != 3 or not re.match(r"^\d-[A-Z]$", ano_sala):
             raise ValueError("A identificação da turma deve estar no formato '<número>-<letra>' (Ex: 1-A).")
         
         self.ano_sala = ano_sala

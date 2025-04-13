@@ -1,31 +1,35 @@
 import unittest
-from turma import Aluno, Turma
+from gerenciador_turmas import Aluno, Turma
 
 
 class TestAluno(unittest.TestCase):
+        
+    def test_criar_aluno_com_sucesso(self):
+        aluno = Aluno([7, 8, 9])
+        self.assertIsInstance(aluno, Aluno, "Falha no teste de criação de nova intância de Aluno.")
 
-    def test_aluno_com_mais_de_tres_notas(self):
+    def test_criar_aluno_com_mais_de_tres_notas(self):
         with self.assertRaises(ValueError):
             Aluno([7, 8, 9, 10])
 
-    def test_aluno_com_menos_de_tres_notas(self):
+    def test_criar_aluno_com_menos_de_tres_notas(self):
         with self.assertRaises(ValueError):
             Aluno([7, 8]) 
 
-    def test_situacao_aprovado(self):
+    def test_aluno_com_situacao_aprovado(self):
         aluno = Aluno([8, 7, 9])
         aluno.calcular_media()
         self.assertEqual(aluno.situacao, "Aprovado")
         self.assertGreaterEqual(aluno.media, 7.0)
 
-    def test_situacao_recuperacao(self):
+    def test_aluno_com_situacao_recuperacao(self):
         aluno = Aluno([5, 6, 5])
         aluno.calcular_media()
         self.assertEqual(aluno.situacao, "Recuperação")
         self.assertGreaterEqual(aluno.media, 5.0)
         self.assertLess(aluno.media, 7.0)
 
-    def test_situacao_reprovado(self):
+    def test_aluno_com_situacao_reprovado(self):
         aluno = Aluno([3, 4, 4])
         aluno.calcular_media()
         self.assertEqual(aluno.situacao, "Reprovado")
@@ -33,10 +37,13 @@ class TestAluno(unittest.TestCase):
 
 
 class TestTurma(unittest.TestCase):
+    
+    def setUp(self):
+        self.turma = Turma("1-A", 30)
+        print("O método setUp é executado antes de cada teste.")
 
     def test_turma_vazia(self):
-        turma = Turma("1-A", 30)
-        self.assertEqual(len(turma.alunos), 0)
+        self.assertEqual(len(self.turma.alunos), 0)
 
     def test_turma_com_ano_sala_tamanho_invalido(self):
         with self.assertRaises(ValueError):
@@ -49,14 +56,13 @@ class TestTurma(unittest.TestCase):
         self.assertNotRegex("A-1", "^\d-[A-Z]$")
 
     def test_adicionar_aluno_com_sucesso(self):
-        turma = Turma("2-B", 2)
         aluno = Aluno([7, 8, 9])
-        resultado = turma.adicionar_aluno(aluno)
+        resultado = self.turma.adicionar_aluno(aluno)
         self.assertTrue(resultado)
-        self.assertEqual(len(turma.alunos), 1)
+        self.assertEqual(len(self.turma.alunos), 1)
 
     def test_nao_adicionar_quando_cheia(self):
-        turma = Turma("3-C", 1)
+        turma = Turma("2-B", 1)
         aluno1 = Aluno([6, 6, 6])
         aluno2 = Aluno([7, 7, 7])
         turma.adicionar_aluno(aluno1)
@@ -79,6 +85,9 @@ class TestTurma(unittest.TestCase):
 
         self.assertCountEqual([aluno4, aluno1, aluno3, aluno2], turma.alunos)
 
+    def tearDown(self):
+        print("O método tearDown é executado após cada teste.")
+    
 
 if __name__ == "__main__":
     unittest.main()
