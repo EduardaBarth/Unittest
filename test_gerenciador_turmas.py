@@ -40,7 +40,7 @@ class TestTurma(unittest.TestCase):
     
     def setUp(self):
         self.turma = Turma("1-A", 30)
-        print("O método setUp é executado antes de cada teste.")
+        # print("O método setUp é executado antes de cada teste.")
 
     def test_turma_vazia(self):
         self.assertEqual(len(self.turma.alunos), 0)
@@ -50,16 +50,17 @@ class TestTurma(unittest.TestCase):
             Turma("1A", 20)
 
     def test_turma_formatos_ano_sala(self):
-        self.assertRegex("1-A", "^\d-[A-Z]$")
-        self.assertNotRegex("1-a", "^\d-[A-Z]$")
-        self.assertNotRegex("1A", "^\d-[A-Z]$")
-        self.assertNotRegex("A-1", "^\d-[A-Z]$")
+        self.assertRegex("1-A", self.turma.formato_ano_sala, "Falha no teste de validação do formato de ano e sala.")
+        self.assertNotRegex("1-a", self.turma.formato_ano_sala, "Falha no teste de validação do formato de ano e sala.")
+        self.assertNotRegex("1A", self.turma.formato_ano_sala, "Falha no teste de validação do formato de ano e sala.")
+        self.assertNotRegex("A-1", self.turma.formato_ano_sala, "Falha no teste de validação do formato de ano e sala.")
 
     def test_adicionar_aluno_com_sucesso(self):
         aluno = Aluno([7, 8, 9])
         resultado = self.turma.adicionar_aluno(aluno)
         self.assertTrue(resultado)
         self.assertEqual(len(self.turma.alunos), 1)
+        self.assertIs(self.turma.alunos[0], aluno)
 
     def test_nao_adicionar_quando_cheia(self):
         turma = Turma("2-B", 1)
@@ -84,9 +85,10 @@ class TestTurma(unittest.TestCase):
         turma.adicionar_aluno(aluno4)
 
         self.assertCountEqual([aluno4, aluno1, aluno3, aluno2], turma.alunos)
+    
 
-    def tearDown(self):
-        print("O método tearDown é executado após cada teste.")
+    # def tearDown(self):
+    #     print("O método tearDown é executado após cada teste.")
     
 
 if __name__ == "__main__":
