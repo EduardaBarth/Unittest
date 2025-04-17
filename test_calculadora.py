@@ -125,14 +125,14 @@ class TestCalculadora(unittest.TestCase):
         logger = logging.getLogger('meu_logger')
         logger.setLevel(logging.DEBUG)
 
-        with self.assertLogs(logger, level='ERROR') as log:
+        with self.assertLogs(logger, level='INFO') as log:
             calculadora.calcular_porcentagem(60, 0)
 
         # Vejo se o tipo do log é uma lista
         self.assertIsInstance(log.output, list)
         
         # Vejo se a mensagem de log contém o texto esperado.
-        self.assertIn("Algo deu errado!", log.output[0])
+        self.assertIn("O valor total está como zero!", log.output[0])
 
     def test_calcular_porcentagem_com_numero_negativo(self):
         """

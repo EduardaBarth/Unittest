@@ -29,7 +29,7 @@ def dividir(dividendo: float, divisor: float) -> float:
 
 def calcular_porcentagem(valor: float, total: float) -> Any:
     if total == 0 or total < 0:
-        logger.error("Algo deu errado!")
+        logger.info("O valor total está como zero!")
         return None
 
     return valor / total * 100
