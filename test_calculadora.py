@@ -18,8 +18,16 @@ class TestCalculadora(unittest.TestCase):
         self.assertIsNot(resultado, 5)
     
     def test_somar_dois_numeros_positivos(self):
-        resultado = calculadora.somar(2, 3)
-        self.assertEqual(resultado, 5)
+        test_cases = [
+            ((2, 3), 5),
+            ((-2, -3), -5),
+            ((4, 4), 8),
+        ]
+
+        for (num1, num2), expected in test_cases:
+            with self.subTest(num1=num1, num2=num2):
+                resultado = calculadora.somar(num1, num2)
+                self.assertEqual(resultado, expected)
 
     def test_somar_dois_numeros_negativos(self):
         resultado = calculadora.somar(-2, -3)
