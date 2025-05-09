@@ -1,5 +1,5 @@
+import datetime
 from typing import List
-import re
 
 
 class Aluno:

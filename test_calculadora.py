@@ -1,5 +1,10 @@
+import datetime
 import sys
 import unittest
+from unittest.mock import patch
+
+import pandas as pd
+
 import calculadora
 import logging
 
@@ -36,14 +41,14 @@ class TestCalculadora(unittest.TestCase):
     def test_somar_string_com_numero_deve_resultar_em_erro(self):
         self.assertRaises(TypeError, calculadora.somar, '', 1)
 
-    def test_somar_numero_positivo_com_negativo(self) :
+    def test_somar_numero_positivo_com_negativo(self):
         resultado = calculadora.somar(5, -10)
         self.assertEqual(resultado, -5)
 
-    def test_cinco_deve_ser_maior_que_um_mais_dois(self) :
+    def test_cinco_deve_ser_maior_que_um_mais_dois(self):
         self.assertGreater(5, calculadora.somar(1,2))
         
-    def test_somar_deve_retornar_int(self) :
+    def test_somar_deve_retornar_int(self):
         self.assertIsInstance(calculadora.somar(1,1), int)
 
     # Testes subtrair
@@ -56,7 +61,7 @@ class TestCalculadora(unittest.TestCase):
         resultado = calculadora.subtrair(-2, -3)
         self.assertEqual(resultado, 1)
         
-    def test_tres_deve_ser_menor_que_cinco_menos_um(self) :
+    def test_tres_deve_ser_menor_que_cinco_menos_um(self):
         self.assertLess(3, calculadora.subtrair(5,1))
 
     # Testes multiplicar
@@ -176,6 +181,19 @@ class TestCalculadora(unittest.TestCase):
         with self.assertRaises(TypeError):
             calculadora.calcular_potencia('a', 2)
 
+    # Teste com patch
+
+    @patch('calculadora.datetime')
+    def test_somar_hora_atual_com_minutos(self, mock_datetime):
+        hora_atual_mock = datetime.datetime(2023, 10, 1, 12, 0, 0)
+        mock_datetime.now.return_value = hora_atual_mock
+
+        #nova_data = datetime.datetime.now() + datetime.timedelta(minutes=10)
+        nova_data = hora_atual_mock + datetime.timedelta(minutes=10)
+
+        resultado = calculadora.somar_hora_atual_com_minutos(10)
+        self.assertEqual(resultado, nova_data.strftime("%Y-%m-%d %H:%M:%S"))
+
 
 if __name__ == '__main__':
-    unittest.main() 
+    unittest.main()

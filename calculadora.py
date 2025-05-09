@@ -1,6 +1,7 @@
 import logging
 import warnings
 from typing import Any
+from datetime import datetime, timedelta
 
 logger = logging.getLogger('meu_logger')
 
@@ -39,7 +40,14 @@ def calcular_potencia(base: int, expoente: int) -> float:
     return base ** expoente
 
 
+def somar_hora_atual_com_minutos(minutes: int) -> str:
+    hora_atual = datetime.now()
+    nova_data = hora_atual + timedelta(minutes=minutes)
+    return nova_data.strftime("%Y-%m-%d %H:%M:%S")
+
+
 if __name__ == '__main__':
 
     print(somar(2, 3))
     print(multiplicar(0.5, 0.5))
+    print(somar_hora_atual_com_minutos(10))
