@@ -16,6 +16,3 @@ suite.addTest(TestLoader().loadTestsFromTestCase(TestTurma))
 
 runner = TextTestRunner()
 runner.run(suite)
-
-print("---------------------------------------------------")
-suite.debug()
