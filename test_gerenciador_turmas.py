@@ -37,10 +37,14 @@ class TestAluno(unittest.TestCase):
 
 
 class TestTurma(unittest.TestCase):
-    
+
+    @classmethod
+    def setUpClass(cls):
+        print("O método setUp é executado uma vez antes de todos os testes.")
+
     def setUp(self):
         self.turma = Turma("1-A", 30)
-        # print("O método setUp é executado antes de cada teste.")
+        print("O método setUp é executado antes de cada teste.")
 
     def test_turma_vazia(self):
         self.assertEqual(len(self.turma.alunos), 0)
@@ -85,10 +89,13 @@ class TestTurma(unittest.TestCase):
         turma.adicionar_aluno(aluno4)
 
         self.assertCountEqual([aluno4, aluno1, aluno3, aluno2], turma.alunos)
-    
 
-    # def tearDown(self):
-    #     print("O método tearDown é executado após cada teste.")
+    def tearDown(self):
+        print("O método tearDown é executado após cada teste.")
+
+    @classmethod
+    def tearDownClass(cls):
+        print("O método tearDown é executado uma vez após todos os testes.")
     
 
 if __name__ == "__main__":
